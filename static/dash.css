@@ -1,0 +1,48 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+	padding: 10px;
+}
+
+#graph-container{
+	height:400px;
+}
+
+.graph{
+	width:1140px;
+	height:400px;
+}
+
+.metric-container{
+	background-color: #ddd;
+	padding:10px;
+	text-align: center;
+}
+
+.metric-name{
+	font-size: 1.2em;
+}
+
+.metric-val{
+	font-weight: bold;
+	font-size: 1.7em;
+}
+.month-select{
+	width:130px
+}
+
+#month-table td {
+	vertical-align: middle;
+}
+
+#reset{
+	display: none;
+	margin: 10px 0;
+}
+
+#back{
+	margin-top: -5px;
+	margin-right: 5px;
+}
