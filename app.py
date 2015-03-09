@@ -5,8 +5,7 @@ from flask import request
 from flask import render_template
 import config
 from bson import json_util
-import datetime
-import json
+import datetime, json
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = config.MONGO_URI
@@ -23,7 +22,7 @@ def index():
         return render_template('no-token.html', **template_data)
 
     res = mongo.db.orderresponses.aggregate([
-        {"$match" : {"request.client_token": client_token}},
+        {"$match" : {"request.client_token": client_token, "_created_at": {"$gte": datetime.datetime(2014,11,1)}}},
         {"$group" : {
             "_id"               : {"month" : {"$month" : "$_created_at"}, "year" : {"$year" : "$_created_at"}},
             "total_orders"      : {"$sum": 1},
@@ -62,7 +61,7 @@ def monthly_data():
     """
     client_token = request.args.get('token', None)
     res = mongo.db.orderresponses.aggregate([
-        {"$match" : {"request.client_token": client_token}},
+        {"$match" : {"request.client_token": client_token, "_created_at": {"$gte": datetime.datetime(2014,11,1)}}},
         {"$group" : {
             "_id"               : {
                 "month" : {"$month" : "$_created_at"},
@@ -152,4 +151,4 @@ def daily_data():
 
 
 if __name__ == "__main__":
-	app.run(debug=False)
+	app.run(debug=True)
